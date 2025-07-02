@@ -4,23 +4,35 @@ import Link from "next/link";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import ActionButtons from "./ActionButtons";
+import PostArticle from "./PostArticle";
+import { faker } from "@faker-js/faker";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
-export default function Post() {
+interface PostProps {
+  noImage?: boolean;
+}
+
+export default function Post({ noImage }: PostProps) {
   const target = {
+    postId: 1,
     User: {
       id: "elonmusk",
       nickname: "Elon Musk",
       image: "/zlogo.png",
     },
     content: "Hello, world!",
-    createdAt: "2021-01-01",
-    Image: [],
+    createdAt: new Date(),
+    Images: [] as any,
   };
+
+  if (Math.random() > 0.5 && !noImage) {
+    target.Images = [{ imageId: 1, link: faker.image.urlLoremFlickr() }];
+  }
+
   return (
-    <article className={styles.post}>
+    <PostArticle post={target}>
       <div className={styles.postWrapper}>
         <div className={styles.postUserSection}>
           <Link href={`/${target.User.id}`} className={styles.postUserImage}>
@@ -43,10 +55,19 @@ export default function Post() {
             </span>
           </div>
           <div>{target.content}</div>
-          {/* <div className={styles.postImageSection}></div> */}
+          <div className={styles.postImageSection}>
+            {target.Images && target.Images.length > 0 && (
+              <Link
+                className={styles.postImageSection}
+                href={`${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
+              >
+                <img src={target.Images[0]?.link} alt="post image" />
+              </Link>
+            )}
+          </div>
           <ActionButtons />
         </div>
       </div>
-    </article>
+    </PostArticle>
   );
 }

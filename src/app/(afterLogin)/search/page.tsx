@@ -3,7 +3,12 @@ import Post from "../_component/Post";
 import SearchForm from "../_component/SearchForm";
 import styles from "./search.module.css";
 
-export default function SearchPage() {
+interface SearchPageProps {
+  searchParams: Promise<{ q: string; f?: string; pf?: string }>;
+}
+
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const { q } = await searchParams;
   return (
     <main className={styles.main}>
       <div className={styles.searchTop}>
