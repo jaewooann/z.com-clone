@@ -5,6 +5,7 @@ import BackButton from "../../_component/BackButton";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import dayjs from "dayjs";
+import cx from "classnames";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -53,14 +54,26 @@ export default function ChatPage() {
           if (m.id === "zerocho") {
             // 내 메세지면
             return (
-              <div className={style.myMessage} key={m.messageId}>
-                {m.content}
+              <div
+                className={cx(style.myMessage, style.message)}
+                key={m.messageId}
+              >
+                <div className={style.content}>{m.content}</div>
+                <div className={style.date}>
+                  {dayjs(m.createdAt).format("YYYY년 MM월 DD일 A HH시 mm분")}
+                </div>
               </div>
             );
           }
           return (
-            <div className={style.yourMessage} key={m.messageId}>
-              {m.content}
+            <div
+              className={cx(style.yourMessage, style.message)}
+              key={m.messageId}
+            >
+              <div className={style.content}>{m.content}</div>
+              <div className={style.date}>
+                {dayjs(m.createdAt).format("YYYY년 MM월 DD일 A HH시 mm분")}
+              </div>
             </div>
           );
         })}

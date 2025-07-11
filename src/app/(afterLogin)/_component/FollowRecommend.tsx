@@ -1,9 +1,19 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import style from "./followRecommend.module.css";
+import { useRouter } from "next/navigation";
 
 export default function FollowRecommend() {
-  const onFollow = () => {};
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const onFollow = () => {
+    if (!session?.user) {
+      window.location.href = "/i/flow/login";
+      return;
+    }
+  };
 
   const user = {
     id: "elonmusk",
