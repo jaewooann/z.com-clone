@@ -7,26 +7,18 @@ import ActionButtons from "./ActionButtons";
 import PostArticle from "./PostArticle";
 import { faker } from "@faker-js/faker";
 import PostImages from "./PostImages";
+import type { Post } from "@/model/Post";
 
-dayjs.locale("ko");
 dayjs.extend(relativeTime);
+dayjs.locale("ko");
 
 interface PostProps {
   noImage?: boolean;
+  post: Post;
 }
 
-export default function Post({ noImage }: PostProps) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "elonmusk",
-      nickname: "Elon Musk",
-      image: "/zlogo.png",
-    },
-    content: "Hello, world!",
-    createdAt: new Date(),
-    Images: [] as any,
-  };
+export default function Post({ noImage, post }: PostProps) {
+  const target = post;
 
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push(

@@ -1,6 +1,7 @@
 import BackButton from "../_component/BackButton";
-import Post from "../_component/Post";
 import SearchForm from "../_component/SearchForm";
+import SearchResult from "./_component/SearchResult";
+import Tab from "./_component/Tab";
 import styles from "./search.module.css";
 
 interface SearchPageProps {
@@ -8,7 +9,8 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const { q } = await searchParams;
+  const query = await searchParams;
+
   return (
     <main className={styles.main}>
       <div className={styles.searchTop}>
@@ -17,24 +19,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <BackButton />
           </div>
           <div className={styles.formZone}>
-            <SearchForm q={q} />
+            <SearchForm q={query.q} pf={query.pf} f={query.f} />
           </div>
         </div>
-        {/* <Tab /> */}
+        <Tab />
       </div>
       <div className={styles.list}>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        {/*<SearchResult searchParams={searchParams} />*/}
+        <SearchResult searchParams={query} />
       </div>
     </main>
   );

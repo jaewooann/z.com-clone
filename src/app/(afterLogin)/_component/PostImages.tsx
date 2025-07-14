@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./post.module.css";
 import cx from "classnames";
+import { PostImage } from "@/model/PostImage";
 
 interface PostImagesProps {
   post: {
@@ -12,7 +13,7 @@ interface PostImagesProps {
     };
     content: string;
     createdAt: Date;
-    Images: any[];
+    Images: PostImage[];
   };
 }
 

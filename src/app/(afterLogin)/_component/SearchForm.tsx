@@ -5,9 +5,11 @@ import styles from "./rightSearchZone.module.css";
 
 interface SearchFormProps {
   q?: string;
+  pf?: string;
+  f?: string;
 }
 
-export default function SearchForm({ q }: SearchFormProps) {
+export default function SearchForm({ q, pf, f }: SearchFormProps) {
   return (
     <Form action="/search" className={styles.search}>
       <svg width={20} viewBox="0 0 24 24" aria-hidden="true">
@@ -16,6 +18,8 @@ export default function SearchForm({ q }: SearchFormProps) {
         </g>
       </svg>
       <input type="search" name="q" defaultValue={q} />
+      <input type="hidden" name="pf" defaultValue={pf} />
+      <input type="hidden" name="f" defaultValue={f} />
     </Form>
   );
 }

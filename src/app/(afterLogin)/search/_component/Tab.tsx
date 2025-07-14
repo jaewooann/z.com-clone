@@ -22,7 +22,6 @@ export default function Tab() {
 
   return (
     <div className={style.homeFixed}>
-      Add commentMore actions
       <div className={style.homeTab}>
         <div onClick={onClickHot}>
           인기
